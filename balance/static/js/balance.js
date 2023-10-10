@@ -29,7 +29,6 @@ function mostrarMovimientos() {
             </tr>
         `;
     }
-    console.log("html", html);
     const tabla = document.querySelector("#cuerpo-tabla");
     tabla.innerHTML = html;
 }

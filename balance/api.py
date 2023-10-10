@@ -70,7 +70,6 @@ def eliminar_movimientos(id):
             if esta_borrado:
                 resultado = {"status": "success", "results": mov}
                 status_code = 200
-
         else:
             resultado = {
                 "status": "error",
