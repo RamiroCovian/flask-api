@@ -19,8 +19,11 @@ def listar_movimientos():
         sql = "SELECT fecha, concepto, tipo, cantidad FROM movimientos"
         movs = db.consultaSQL(sql)
         resultado = {"status": "success", "results": movs}
+        status_code = 200
+
     except Exception as ex:
         resultado = {"message": str(ex), "status": "error"}
+        status_code = 500
     return jsonify(resultado)
 
 
