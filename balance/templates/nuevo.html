@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+
+{% if errors %}
+<div class="lista-errores">
+    <i class="fa-solid fa-bomb fa-2xl" style="color: #c92c2c;"></i>
+    Revisa los errores
+</div>
+{% endif %}
+
+<form action="/nuevo/" method="POST" novalidate>
+    {{ form.csrf_token }}
+
+    {{ form.id }}
+
+    <div class="campo-formulario">
+        {{ form.fecha.label }}
+        {{ form.fecha }}
+        {% if errors %}
+
+        {% for error in errors %}
+
+        {% if error[0] == "fecha" %}
+
+        {% for msg in error[1] %}
+        <li class="mensaje-error-campos">{{ msg }}</li>
+        {% endfor %}
+
+        {% endif %}
+
+        {% endfor %}
+
+        {% endif %}
+    </div>
+
+    <div class="campo-formulario">
+        {{ form.concepto.label }}
+        {{ form.concepto }}
+        {% if errors %}
+
+        {% for error in errors %}
+
+        {% if error[0] == "concepto" %}
+
+        {% for msg in error[1] %}
+        <li class="mensaje-error-campos">{{ msg }}</li>
+        {% endfor %}
+
+        {% endif %}
+
+        {% endfor %}
+
+        {% endif %}
+    </div>
+
+    <div class="campo-formulario">
+        {% for campo in form.tipo %}
+        {{ campo }}
+        {{ campo.label }}
+        {% endfor %}
+        {% if errors %}
+
+        {% for error in errors %}
+
+        {% if error[0] == "tipo" %}
+
+        {% for msg in error[1] %}
+        <li class="mensaje-error-campos">{{ msg }}</li>
+        {% endfor %}
+
+        {% endif %}
+
+        {% endfor %}
+
+        {% endif %}
+    </div>
+
+    <div class="campo-formulario">
+        {{ form.cantidad.label }}
+        {{ form.cantidad }}
+        {% if errors %}
+
+        {% for error in errors %}
+
+        {% if error[0] == "cantidad" %}
+
+        {% for msg in error[1] %}
+        <li class="mensaje-error-campos">{{ msg }}</li>
+        {% endfor %}
+
+        {% endif %}
+
+        {% endfor %}
+
+        {% endif %}
+    </div>
+
+    <div class="acciones">
+        {{ form.submit }}
+    </div>
+
+
+</form>
+{% endblock contenido %}
+
+{% block page_title %}
+<h1>Crear nuevo movimiento</h1>
+{% endblock page_title %}
