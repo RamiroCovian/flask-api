@@ -23,18 +23,38 @@ function mostrarMovimientos() {
     const resultado = JSON.parse(peticion.responseText);
     const movimientos = resultado.results;
 
+
     let html = "";
     // En Python:
     // for i in Range(len(movimientos)):
     //     i = i + 1
     for (let i = 0; i < movimientos.length; i = i + 1) {
-        const mov = movimientos[i]
+        const mov = movimientos[i];
+
+        const fecha = new Date(mov.fecha);
+        const fechaFormateada = fecha.toLocaleDateString();
+
+        if (mov.tipo === "G") {
+            mov.tipo = "Gasto"
+        } else if (mov.tipo === "I") {
+            mov.tipo = "Ingreso";
+        } else {
+            mov.tipo = "---";
+        }
+
+        const opciones = {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }
+        const formateador = new Intl.NumberFormat("es-ES", opciones);
+        const cantidad = formateador.format(mov.cantidad);
+
         html = html + `
             <tr>
-                <td>${mov.fecha}</td> 
+                <td>${fechaFormateada}</td> 
                 <td>${mov.concepto}</td>
                 <td>${mov.tipo}</td>
-                <td>${mov.cantidad}</td>
+                <td class="numero">${cantidad}</td>
                 <td class="acciones">
                     <a class="mini-boton delete">
                         <i data-id="${mov.id}" class="fa-solid fa-eraser"></i>
