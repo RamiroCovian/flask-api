@@ -9,6 +9,15 @@ function cargarMovimientos() {
     console.log("FIN carga movimientos")
 }
 
+function borrarMovimiento(evento) {
+    const target = evento.target;
+    const id = target.getAttribute('data-id');
+    const xhr = new XMLHttpRequest()
+    xhr.open('DELETE', `http://localhost:5000/api/v1/movimientos/${id}`, false);
+    xhr.send();
+    cargarMovimientos();
+}
+
 function mostrarMovimientos() {
     console.log("Entramos en mostrar movimientos")
     const resultado = JSON.parse(peticion.responseText);
@@ -26,11 +35,22 @@ function mostrarMovimientos() {
                 <td>${mov.concepto}</td>
                 <td>${mov.tipo}</td>
                 <td>${mov.cantidad}</td>
+                <td class="acciones">
+                    <a class="mini-boton delete">
+                        <i data-id="${mov.id}" class="fa-solid fa-eraser"></i>
+                    </a>
+                </td>
             </tr>
         `;
     }
     const tabla = document.querySelector("#cuerpo-tabla");
     tabla.innerHTML = html;
+    
+    const botonesBorrar = document.querySelectorAll('.mini-boton.delete');
+    // botonesBorrar.forEach(function (btn) { console.log(btn); })
+    botonesBorrar.forEach((btn) => btn.addEventListener('click', borrarMovimiento));
+
+    console.log('FIN de la función mostrar movimientos');
 }
 
 window.onload = function () {

@@ -16,7 +16,7 @@ def listar_movimientos():
         """
         db = DBManager(app.config["RUTA"])
 
-        sql = "SELECT fecha, concepto, tipo, cantidad FROM movimientos"
+        sql = "SELECT id, fecha, concepto, tipo, cantidad FROM movimientos"
         movs = db.consultaSQL(sql)
         resultado = {"status": "success", "results": movs}
         status_code = 200
